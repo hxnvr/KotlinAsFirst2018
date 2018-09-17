@@ -70,7 +70,7 @@ fun ageDescription(age: Int): String = when {
 }
 
 
-/*
+/**
  * Простая
  *
  * Путник двигался t1 часов со скоростью v1 км/час, затем t2 часов — со скоростью v2 км/час
@@ -79,7 +79,14 @@ fun ageDescription(age: Int): String = when {
  */
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
-                   t3: Double, v3: Double): Double = TODO()
+                   t3: Double, v3: Double): Double {
+    val distance = t1 * v1 + t2 * v2 + t3 * v3
+    return when {
+        distance / 2.0 <= t1 * v1 -> distance / 2.0 / v1
+        distance / 2.0 <= t1 * v1 + t2 * v2 -> t1 + (distance / 2.0 - t1 * v1) / v2
+        else -> t1 + t2 + (distance / 2.0 - t1 * v1 - t2 * v2) / v3
+    }
+}
 
 /**
  * Простая
