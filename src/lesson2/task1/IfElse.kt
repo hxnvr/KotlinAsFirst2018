@@ -99,7 +99,16 @@ fun timeForHalfWay(t1: Double, v1: Double,
  */
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int = TODO()
+                       rookX2: Int, rookY2: Int): Int {
+    val rook1 = if ((kingX == rookX1) or (kingY == rookY1)) 1 else 0
+    val rook2 = if ((kingX == rookX2) or (kingY == rookY2)) 1 else 0
+    return when {
+        (rook1 == 1) and (rook2 == 0) -> 1
+        (rook1 == 0) and (rook2 == 1) -> 2
+        (rook1 == 1) and (rook2 == 1) -> 3
+        else -> 0
+    }
+}
 
 /**
  * Простая
