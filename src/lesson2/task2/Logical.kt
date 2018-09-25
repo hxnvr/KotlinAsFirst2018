@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task2
 
 import lesson1.task1.sqr
@@ -23,7 +24,6 @@ fun isNumberHappy(number: Int): Boolean =
         number / 100 % 10 + number / 1000 == number % 10 + number % 100 / 10
 
 
-
 /**
  * Простая
  *
@@ -42,8 +42,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int {
-    return when (month)
-    {
+    return when (month) {
         4, 6, 9, 11 -> 30
         2 -> if (year % 4 == 0 && year % 100 != 0 || year % 400 == 0) 29 else 28
         else -> 31

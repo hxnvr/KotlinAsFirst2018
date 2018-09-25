@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task1
 
 import lesson1.task1.discriminant
@@ -6,6 +7,7 @@ import lesson1.task1.sqr
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.sqrt
+
 /**
  * Пример
  *
@@ -64,9 +66,9 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String = when {
-    (age % 10 > 4) or (((age % 100) < 20) and ((age % 100) > 4)) -> "$age лет"
-    (age % 10 > 1) and (age % 10 < 5) and (age > 21) -> "$age года"
-    (age % 10 == 1) -> "$age год"
+    age % 10 > 4 || age % 100 in (4..20) -> "$age лет"
+    age % 10 in (1..5) && age > 21 -> "$age года"
+    age % 10 == 1 -> "$age год"
     else -> "0"
 }
 
@@ -101,12 +103,12 @@ fun timeForHalfWay(t1: Double, v1: Double,
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
                        rookX2: Int, rookY2: Int): Int {
-    val rook1 = if ((kingX == rookX1) or (kingY == rookY1)) 1 else 0
-    val rook2 = if ((kingX == rookX2) or (kingY == rookY2)) 1 else 0
+    val rook1 = (kingX == rookX1) || (kingY == rookY1)
+    val rook2 = (kingX == rookX2) || (kingY == rookY2)
     return when {
-        (rook1 == 1) and (rook2 == 0) -> 1
-        (rook1 == 0) and (rook2 == 1) -> 2
-        (rook1 == 1) and (rook2 == 1) -> 3
+        rook1 && rook2 -> 3
+        !rook1 && rook2 -> 2
+        rook1 && !rook2 -> 1
         else -> 0
     }
 }
@@ -124,15 +126,17 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int {
-    val bishop = if ((((bishopX - kingX) + (bishopY - kingY)) == 0) or (((bishopX - kingX) - (bishopY - kingY)) == 0)) 1 else 0
-    val rook = if ((kingX == rookX) or (kingY == rookY)) 1 else 0
+    val rook = (kingX == rookX) || (kingY == rookY)
+    val bishop = abs(kingX - bishopX) == abs(kingY - bishopY)
     return when {
-        (bishop == 1) and (rook == 0) -> 2
-        (bishop == 0) and (rook == 1) -> 1
-        (bishop == 1) and (rook == 1) -> 3
+        rook && bishop -> 3
+        !rook && bishop -> 2
+        !bishop && rook -> 1
         else -> 0
     }
 }
+
+
 
 /**
  * Простая
