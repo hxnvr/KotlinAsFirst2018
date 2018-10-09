@@ -2,6 +2,8 @@
 
 package lesson3.task1
 
+import kotlin.math.ceil
+import kotlin.math.floor
 import kotlin.math.sqrt
 
 /**
@@ -83,7 +85,16 @@ fun digitNumber(n: Int): Int {
  * Найти число Фибоначчи из ряда 1, 1, 2, 3, 5, 8, 13, 21, ... с номером n.
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
-fun fib(n: Int): Int = if (n in 1..2) 1 else fib(n - 1) + fib(n - 2)
+fun fib(n: Int): Int {
+    var x = 0
+    var y = 1
+    for (i in 1..n) {
+        val z = x + y
+        x = y
+        y = z
+    }
+    return x
+}
 
 /**
  * Простая
@@ -98,14 +109,20 @@ fun lcm(m: Int, n: Int): Int = TODO()
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var x = 2
+    if (isPrime(n)) return n
+    else
+        while (n % x != 0) x++
+    return x
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int = n / minDivisor(n)
 
 /**
  * Простая
@@ -123,7 +140,8 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
+fun squareBetweenExists(m: Int, n: Int): Boolean =
+        ceil(Math.sqrt(m.toDouble())) <= floor(Math.sqrt(n.toDouble()))
 
 /**
  * Средняя
