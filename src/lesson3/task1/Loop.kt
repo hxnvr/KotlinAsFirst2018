@@ -102,7 +102,9 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+
+}
 
 /**
  * Простая
@@ -141,7 +143,7 @@ fun isCoPrime(m: Int, n: Int): Boolean = TODO()
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean =
-        ceil(Math.sqrt(m.toDouble())) <= floor(Math.sqrt(n.toDouble()))
+        ceil(sqrt(m.toDouble())) <= floor(sqrt(n.toDouble()))
 
 /**
  * Средняя
@@ -159,7 +161,16 @@ fun squareBetweenExists(m: Int, n: Int): Boolean =
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var steps = 0
+    var X = x
+    while (X != 1) {
+        steps++
+        if (X % 2 == 0) X /= 2
+        else X = 3 * X + 1
+    }
+    return steps
+}
 
 /**
  * Средняя
