@@ -2,9 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.ceil
-import kotlin.math.floor
-import kotlin.math.sqrt
+import kotlin.math.*
 
 /**
  * Пример
@@ -102,7 +100,14 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var smaller = min(m, n)
+    var bigger = max(m, n)
+    var lcm = bigger
+    while (lcm % smaller != 0)
+        lcm += bigger
+    return lcm
+}
 
 /**
  * Простая
