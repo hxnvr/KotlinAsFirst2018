@@ -136,7 +136,11 @@ fun maxDivisor(n: Int): Int = n / minDivisor(n)
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    for (divisor in 2..min(m, n))
+        if ((n % divisor == 0) && (m % divisor == 0)) return false
+    return true
+}
 
 /**
  * Простая
@@ -230,7 +234,17 @@ fun isPalindrome(n: Int): Boolean =
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var number = n / 10
+    var num = n % 10
+    var dyn: Int
+    while (number > 0) {
+        dyn = number % 10
+        if (dyn != num) return true
+        number /= 10
+    }
+    return false
+}
 
 /**
  * Сложная
