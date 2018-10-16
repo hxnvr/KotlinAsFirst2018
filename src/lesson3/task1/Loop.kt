@@ -101,8 +101,8 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var smaller = min(m, n)
-    var bigger = max(m, n)
+    val smaller = min(m, n)
+    val bigger = max(m, n)
     var lcm = bigger
     while (lcm % smaller != 0)
         lcm += bigger
@@ -170,11 +170,11 @@ fun squareBetweenExists(m: Int, n: Int): Boolean =
  */
 fun collatzSteps(x: Int): Int {
     var steps = 0
-    var X = x
-    while (X != 1) {
+    var theX = x
+    while (theX != 1) {
         steps++
-        if (X % 2 == 0) X /= 2
-        else X = 3 * X + 1
+        if (theX % 2 == 0) theX /= 2
+        else theX = 3 * theX + 1
     }
     return steps
 }
@@ -236,7 +236,7 @@ fun isPalindrome(n: Int): Boolean =
  */
 fun hasDifferentDigits(n: Int): Boolean {
     var number = n / 10
-    var num = n % 10
+    val num = n % 10
     var dyn: Int
     while (number > 0) {
         dyn = number % 10
