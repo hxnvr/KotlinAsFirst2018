@@ -115,11 +115,10 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    var x = 2
-    if (isPrime(n)) return n
-    else
-        while (n % x != 0) x++
-    return x
+    for (i in 2..sqrt(n.toDouble()).toInt())
+        if (n % i == 0)
+            return i
+    return n
 }
 
 /**
