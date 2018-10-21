@@ -2,6 +2,7 @@
 
 package lesson3.task1
 
+import lesson1.task1.sqr
 import kotlin.math.*
 
 /**
@@ -101,12 +102,13 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    val smaller = min(m, n)
-    val bigger = max(m, n)
-    var lcm = bigger
-    while (lcm % smaller != 0)
-        lcm += bigger
-    return lcm
+    var x = m
+    var y = n
+    val l = m * n
+    while (x != y) {
+        if (x > y) x -= y else y -= x
+    }
+    return l / x
 }
 
 /**
@@ -185,7 +187,20 @@ fun collatzSteps(x: Int): Int {
  * sin(x) = x - x^3 / 3! + x^5 / 5! - x^7 / 7! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    val theX = x % (2 * PI)
+    var a = theX
+    var n = theX
+    var i = 1.0
+    while (true) {
+        n = -n * sqr(theX) / (i + 1) / (i + 2)
+        if (Math.abs(n) < eps)
+            break
+        a += n
+        i += 2
+    }
+    return a
+}
 
 /**
  * Средняя
@@ -194,7 +209,20 @@ fun sin(x: Double, eps: Double): Double = TODO()
  * cos(x) = 1 - x^2 / 2! + x^4 / 4! - x^6 / 6! + ...
  * Нужную точность считать достигнутой, если очередной член ряда меньше eps по модулю
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    val theX = x % (2 * PI)
+    var a = 1.0
+    var n = 1.0
+    var i = 0.0
+    while (true) {
+        n = -n * sqr(theX) / (i + 1) / (i + 2)
+        if (Math.abs(n) < eps)
+            break
+        a += n
+        i += 2
+    }
+    return a
+}
 
 /**
  * Средняя
