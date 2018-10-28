@@ -217,10 +217,10 @@ fun convert(n: Int, base: Int): List<Int> {
     val res = mutableListOf<Int>()
     var num = n
     while (num > 0) {
-        res.add(num % base)
+        res.add(0, num % base)
         num /= base
     }
-    return res.reversed()
+    return res
 }
 
 /**
@@ -231,7 +231,9 @@ fun convert(n: Int, base: Int): List<Int> {
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+fun convertToString(n: Int, base: Int): String =
+        convert(n, base).joinToString(separator = "")
+        { if (it > 9) (it + 87).toChar().toString() else it.toString() }
 
 /**
  * Средняя
