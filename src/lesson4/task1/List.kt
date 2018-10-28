@@ -4,6 +4,7 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson3.task1.minDivisor
+import kotlin.coroutines.experimental.buildIterator
 import kotlin.math.min
 import kotlin.math.sqrt
 
@@ -188,11 +189,13 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
  */
 fun factorize(n: Int): List<Int> {
     val mut = mutableListOf<Int>()
-    var theN = n
-    while (theN > 1) {
-        val min = minDivisor(theN)
-        mut.add(min)
-        theN /= min
+    var num = n
+    var i = 2
+    while (num >= i) {
+        if (num % i == 0) {
+            mut.add(i)
+            num /= i
+        } else i++
     }
     return mut
 }
@@ -216,11 +219,11 @@ fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*
 fun convert(n: Int, base: Int): List<Int> {
     val res = mutableListOf<Int>()
     var num = n
-    while (num > 0) {
-        res.add(0, num % base)
+    do {
+        res.add(num % base)
         num /= base
-    }
-    return res
+    } while (num > 0)
+    return res.reversed()
 }
 
 /**
