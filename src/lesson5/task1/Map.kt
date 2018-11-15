@@ -94,8 +94,7 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> =
-        (mapA.entries + mapB.entries).groupBy { it.key }
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
 
 /**
  * Простая
@@ -107,8 +106,10 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> = TODO()
-
+fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> =
+        grades.entries.map { it.key }.groupBy { grades[it] }.mapValues { (_, grade) ->
+            grade.sortedDescending()
+        }.toSortedMap(compareBy { -it })
 /**
  * Простая
  *
@@ -190,7 +191,9 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) = a.keys.removeIf { b[it] == a[it] }
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
+    for ((key, value) in b) if (a[key] == value) a.remove(key)
+}
 
 /**
  * Простая

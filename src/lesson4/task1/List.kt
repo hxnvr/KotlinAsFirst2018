@@ -161,8 +161,8 @@ fun times(a: List<Double>, b: List<Double>): Double = a.foldIndexed(0.0) { i, nu
 fun polynom(p: List<Double>, x: Double): Double {
     var result = 0.0
     var theX = 1.0
-    for (i in 0 until p.size) {
-        result += p[i] * theX
+    p.forEach {
+        result += it * theX
         theX *= x
     }
     return result
@@ -178,10 +178,9 @@ fun polynom(p: List<Double>, x: Double): Double {
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double>  {
-    list.foldIndexed(0.0) { it, prev, _ ->
-        list[it] += prev
-        list[it]
+fun accumulate(list: MutableList<Double>): MutableList<Double> {
+    for (i in 1 until list.size) {
+        list[i] += list[i - 1]
     }
     return list
 }
@@ -241,7 +240,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String =
-        convert(n, base).map { if (it > 9) 'a' + (it - 10) else  it }.joinToString(separator = "")
+        convert(n, base).map { if (it > 9) 'a' + (it - 10) else it }.joinToString(separator = "")
 
 
 /**
@@ -252,17 +251,8 @@ fun convertToString(n: Int, base: Int): String =
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int {
-    var res = 0
-    var factor = 1
-
-    digits.reversed().forEach {
-        res += it * factor
-        factor *= base
-    }
-
-    return res
-}
+fun decimal(digits: List<Int>, base: Int): Int =
+        polynom(digits.map { it.toDouble() }.reversed(), base.toDouble()).toInt()
 
 /**
  * Сложная
