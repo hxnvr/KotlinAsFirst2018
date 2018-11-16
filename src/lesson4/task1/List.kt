@@ -3,9 +3,6 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import lesson3.task1.minDivisor
-import kotlin.coroutines.experimental.buildIterator
-import kotlin.math.min
 import kotlin.math.sqrt
 
 /**
