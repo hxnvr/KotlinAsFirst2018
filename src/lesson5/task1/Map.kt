@@ -94,7 +94,14 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val res = mapB.plus(mapA).toMutableMap()
+    for ((name) in res) {
+        if ((res[name] != mapB[name]) and (mapB[name] != null))
+            res[name] = res[name] + ", " + mapB[name]
+    }
+    return res
+}
 
 /**
  * Простая
@@ -149,7 +156,10 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = stuff
+        .filter { it.value.first == kind }
+        .minBy { it.value.second }
+        ?.key
 
 /**
  * Сложная
