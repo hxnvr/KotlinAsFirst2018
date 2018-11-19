@@ -3,6 +3,7 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import kotlin.math.pow
 import kotlin.math.sqrt
 
 /**
@@ -133,8 +134,8 @@ fun mean(list: List<Double>): Double = if (list.isEmpty()) 0.0 else list.sum() /
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double> {
-    val m = mean(list)
-    for (i in 0 until list.size) list[i] -= m
+    val average = list.average()
+    list.replaceAll { it - average }
     return list
 }
 
@@ -155,15 +156,8 @@ fun times(a: List<Double>, b: List<Double>): Double = a.foldIndexed(0.0) { i, nu
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double {
-    var result = 0.0
-    var theX = 1.0
-    p.forEach {
-        result += it * theX
-        theX *= x
-    }
-    return result
-}
+fun polynom(p: List<Double>, x: Double): Double = p.mapIndexed { i, n -> p[i] * x.pow(i) }.sum()
+
 
 /**
  * Средняя
@@ -237,7 +231,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
 fun convertToString(n: Int, base: Int): String =
-        convert(n, base).map { if (it > 9) 'a' + (it - 10) else it }.joinToString(separator = "")
+        convert(n, base).joinToString(separator = "") { if (it in 0..9) it.toString() else ('a' - 10 + it).toString() }
 
 
 /**
@@ -260,7 +254,16 @@ fun decimal(digits: List<Int>, base: Int): Int =
  * 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: str = "13c", base = 14 -> 250
  */
-fun decimalFromString(str: String, base: Int): Int = str.toInt(base)
+fun decimalFromString(str: String, base: Int): Int {
+    var res = 0
+    var base0 = 1
+    str.reversed().forEach {
+        val num = if (it <= '9') it - '0' else (it.toLowerCase() - 'a' + 10)
+        res += base0 * num
+        base0 *= base
+    }
+    return res
+}
 
 /**
  * Сложная
