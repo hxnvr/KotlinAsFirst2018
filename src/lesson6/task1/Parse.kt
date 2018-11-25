@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+
 /**
  * Пример
  *
@@ -59,7 +61,6 @@ fun main(args: Array<String>) {
     }
 }
 
-
 /**
  * Средняя
  *
@@ -71,7 +72,17 @@ fun main(args: Array<String>) {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val mapOfMonth = mapOf("января" to 1, "февраля" to 2, "марта" to 3, "апреля" to 4, "мая" to 5, "июня" to 6, "июля" to 7, "августа" to 8, "сентября" to 9
+            , "октября" to 10, "ноября" to 11, "декабря" to 12)
+    val resStr = str.split(" ")
+    if (resStr.size != 3) return ""
+    val days = resStr[0].toIntOrNull()
+    val month = mapOfMonth[resStr[1]] ?: 0
+    val year = resStr[2].toIntOrNull() ?: 0
+    if (month == 0 || days == 0 || days !in 0..daysInMonth(month, year)) return ""
+    return String.format("%02d.%02d.%d", days, month, year)
+}
 
 /**
  * Средняя
@@ -83,7 +94,22 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val mapOfMonth = mapOf("01" to "января", "02" to "февраля", "03" to "марта",
+            "04" to "апреля", "05" to "мая", "06" to "июня", "07" to "июля"
+            , "08" to "августа", "09" to "сентября", "10" to "октября", "11" to "ноября", "12" to "декабря")
+    val resDigital = digital.split(".")
+    if (resDigital.size != 3) return ""
+    val day = resDigital[0].toIntOrNull()
+    val month = mapOfMonth[resDigital[1]]
+    val month2 = resDigital[1].toIntOrNull()
+    val year = resDigital[2].toIntOrNull()
+    return if (day != null && month != null && year != null
+            && day in 0..daysInMonth(month2!!, year))
+        String.format("%d $month %d", day, year)
+    else ""
+
+}
 
 /**
  * Средняя
@@ -97,7 +123,12 @@ fun dateDigitToStr(digital: String): String = TODO()
  * Все символы в номере, кроме цифр, пробелов и +-(), считать недопустимыми.
  * При неверном формате вернуть пустую строку
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    if (Regex("""\d""").matches(phone)) return phone
+    if (Regex("""(\+?|\d)\d+?\s*(\(\d+\))?((\s*-*)*\d+)+""").matches(phone))
+        return Regex("""(-)|(\s)|(\()|(\))""").replace(phone, "")
+    return ""
+}
 
 /**
  * Средняя
