@@ -73,14 +73,15 @@ fun main(args: Array<String>) {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    val mapOfMonth = mapOf("января" to 1, "февраля" to 2, "марта" to 3, "апреля" to 4, "мая" to 5, "июня" to 6, "июля" to 7, "августа" to 8, "сентября" to 9
-            , "октября" to 10, "ноября" to 11, "декабря" to 12)
+    val mapOfMonth = mapOf("января" to 1, "февраля" to 2, "марта" to 3, "апреля" to 4,
+            "мая" to 5, "июня" to 6, "июля" to 7, "августа" to 8, "сентября" to 9,
+            "октября" to 10, "ноября" to 11, "декабря" to 12)
     val resStr = str.split(" ")
     if (resStr.size != 3) return ""
     val days = resStr[0].toIntOrNull()
     val month = mapOfMonth[resStr[1]] ?: 0
     val year = resStr[2].toIntOrNull() ?: 0
-    if (month == 0 || days == 0 || days !in 0..daysInMonth(month, year)) return ""
+    if (month == 0 || days == 0 || days !in 1..daysInMonth(month, year)) return ""
     return String.format("%02d.%02d.%d", days, month, year)
 }
 
@@ -105,7 +106,7 @@ fun dateDigitToStr(digital: String): String {
     val month2 = resDigital[1].toIntOrNull()
     val year = resDigital[2].toIntOrNull()
     return if (day != null && month != null && year != null
-            && day in 0..daysInMonth(month2!!, year))
+            && day in 1..daysInMonth(month2!!, year))
         String.format("%d $month %d", day, year)
     else ""
 
