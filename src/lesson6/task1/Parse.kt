@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.lang.IllegalArgumentException
 
 /**
  * Пример
@@ -51,12 +52,10 @@ fun main(args: Array<String>) {
         val seconds = timeStrToSeconds(line)
         if (seconds == -1) {
             println("Введённая строка $line не соответствует формату ЧЧ:ММ:СС")
-        }
-        else {
+        } else {
             println("Прошло секунд с начала суток: $seconds")
         }
-    }
-    else {
+    } else {
         println("Достигнут <конец файла> в процессе чтения строки. Программа прервана")
     }
 }
@@ -138,6 +137,7 @@ fun bothJumps(jumps: String): Int {
     Regex("""\s+""").split(jumps).filter { Regex("""\d+""").matches(it) }.forEach { res = maxOf(it.toInt(), res) }
     return res
 }
+
 /**
  * Средняя
  *
@@ -180,7 +180,20 @@ fun bestHighJump(jumps: String): Int {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    Regex("""^\d+( [-+] \d+)*$""").find(expression) ?: throw IllegalArgumentException()
+    val numbers = expression.split(" ").toMutableList()
+    if (numbers.size % 2 == 0) throw IllegalArgumentException()
+    var res = numbers[0].toInt()
+    for (i in 1 until numbers.size step 2) {
+        Regex("""\d+""").find(numbers[i + 1]) ?: throw IllegalArgumentException()
+        when (numbers[i]) {
+            "+" -> res += numbers[i + 1].toInt()
+            "-" -> res -= numbers[i + 1].toInt()
+        }
+    }
+    return res
+}
 
 /**
  * Сложная
@@ -191,7 +204,13 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    return try {
+        Regex("""([А-я]+)\s\1""").find(str.toLowerCase())!!.range.first
+    } catch (e: Exception) {
+        -1
+    }
+}
 
 /**
  * Сложная
