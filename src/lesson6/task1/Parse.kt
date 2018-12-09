@@ -206,7 +206,7 @@ fun plusMinus(expression: String): Int {
  */
 fun firstDuplicateIndex(str: String): Int {
     return try {
-        Regex("""([А-я]+)\s\1""").find(str.toLowerCase())!!.range.first
+        Regex("""(\D+)\s\1""").find(str.toLowerCase())!!.range.first
     } catch (e: Exception) {
         -1
     }
