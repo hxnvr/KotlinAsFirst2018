@@ -57,7 +57,7 @@ Basic, Ruby, Swift.
 
     @Test
     @Tag("Normal")
-    fun countSubstrings() {
+     fun countSubstrings() {
         assertEquals(mapOf("РАЗНЫЕ" to 2, "ные" to 2, "Неряшливость" to 1, "е" to 49, "эволюция" to 0),
                 countSubstrings("input/substrings_in1.txt", listOf("РАЗНЫЕ", "ные", "Неряшливость", "е", "эволюция")))
         assertEquals(mapOf("Карминовый" to 2, "Некрасивый" to 2, "белоглазый" to 1),
