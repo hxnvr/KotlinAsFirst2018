@@ -117,7 +117,7 @@ class Tests {
     @Test
     @Tag("Hard")
     fun fromRoman() {
-        assertEquals(1, fromRoman("I"))
+        IllegalArgumentException::class.java
         assertEquals(3000, fromRoman("MMM"))
         assertEquals(1978, fromRoman("MCMLXXVIII"))
         assertEquals(694, fromRoman("DCXCIV"))
@@ -144,3 +144,4 @@ class Tests {
         assertThrows(IllegalStateException::class.java) { computeDeviceCells(20, ">>>>>>>>>>>>>", 12) }
     }
 }
+

@@ -108,8 +108,11 @@ fun diameter(vararg points: Point): Segment = TODO()
  * Построить окружность по её диаметру, заданному двумя точками
  * Центр её должен находиться посередине между точками, а радиус составлять половину расстояния между ними
  */
-fun circleByDiameter(diameter: Segment): Circle = TODO()
-
+fun circleByDiameter(diameter: Segment): Circle {
+    val center = Pair((diameter.begin.x + diameter.end.x) / 2, (diameter.begin.y + diameter.end.y) / 2)
+    val radius = diameter.begin.distance(diameter.end) / 2
+    return Circle(Point(center.first, center.second), radius)
+}
 /**
  * Прямая, заданная точкой point и углом наклона angle (в радианах) по отношению к оси X.
  * Уравнение прямой: (y - point.y) * cos(angle) = (x - point.x) * sin(angle)
