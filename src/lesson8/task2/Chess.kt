@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson8.task2
 
 import java.lang.IllegalArgumentException
@@ -61,7 +62,14 @@ fun square(notation: String): Square {
  * Пример: rookMoveNumber(Square(3, 1), Square(6, 3)) = 2
  * Ладья может пройти через клетку (3, 3) или через клетку (6, 1) к клетке (6, 3).
  */
-fun rookMoveNumber(start: Square, end: Square): Int = TODO()
+fun rookMoveNumber(start: Square, end: Square): Int =
+        when {
+            (start == end) -> 0
+            ((start.column == end.column) || (start.row == end.row)) -> 1
+            ((start.column != end.column) || (start.row != end.row)) -> 2
+            else -> throw IllegalArgumentException()
+        }
+
 
 /**
  * Средняя
