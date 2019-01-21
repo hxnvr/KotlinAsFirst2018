@@ -157,26 +157,20 @@ fun lineBySegment(s: Segment): Line {
     val angle = atan2(s.end.y - s.begin.y, s.end.x - s.begin.x) % PI
     return Line(Point(s.begin.x, s.begin.y), if (angle >= 0) angle else (PI + angle))
 }
+
 /**
  * Средняя
  *
  * Построить прямую по двум точкам
  */
-fun lineByPoints(a: Point, b: Point): Line {
-    val angle = atan2(b.y - a.y, b.x - a.x) % PI
-    return Line(a, if (angle >= 0) angle else (PI + angle))
-}
+fun lineByPoints(a: Point, b: Point): Line = lineBySegment(Segment(a, b))
 
 /**
  * Сложная
  *
  * Построить серединный перпендикуляр по отрезку или по двум точкам
  */
-fun bisectorByPoints(a: Point, b: Point): Line {
-    val center = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
-    val angle = (atan2(b.y - a.y, b.x - a.x) + PI / 2) % PI
-    return Line(center, if (angle >= 0) angle else (PI + angle))
-}
+fun bisectorByPoints(a: Point, b: Point): Line = TODO()
 
 /**
  * Средняя

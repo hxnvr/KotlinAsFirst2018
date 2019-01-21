@@ -2,6 +2,7 @@
 
 package lesson8.task2
 
+import java.lang.Math.abs
 import java.lang.IllegalArgumentException
 
 /**
@@ -64,10 +65,10 @@ fun square(notation: String): Square {
  */
 fun rookMoveNumber(start: Square, end: Square): Int =
         when {
+            !start.inside() || !end.inside() -> throw IllegalArgumentException()
             (start == end) -> 0
             ((start.column == end.column) || (start.row == end.row)) -> 1
-            ((start.column != end.column) || (start.row != end.row)) -> 2
-            else -> throw IllegalArgumentException()
+            else -> 2
         }
 
 
@@ -85,7 +86,13 @@ fun rookMoveNumber(start: Square, end: Square): Int =
  *          rookTrajectory(Square(3, 5), Square(8, 5)) = listOf(Square(3, 5), Square(8, 5))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun rookTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun rookTrajectory(start: Square, end: Square): List<Square> =
+        when {
+            end == start -> listOf(Square(start.column, start.row))
+            (start.column != end.column) && (start.row != end.row) -> listOf(Square(start.column, start.row),
+                    Square(start.column, end.row), Square(end.column, end.row))
+            else -> listOf(Square(start.column, start.row), Square(end.column, end.row))
+        }
 
 /**
  * Простая
@@ -110,7 +117,14 @@ fun rookTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Примеры: bishopMoveNumber(Square(3, 1), Square(6, 3)) = -1; bishopMoveNumber(Square(3, 1), Square(3, 7)) = 2.
  * Слон может пройти через клетку (6, 4) к клетке (3, 7).
  */
-fun bishopMoveNumber(start: Square, end: Square): Int = TODO()
+fun bishopMoveNumber(start: Square, end: Square): Int =
+        when {
+            !start.inside() || !end.inside() -> throw IllegalArgumentException()
+            (start.column + start.row) % 2 != (end.column + end.row) % 2 -> -1
+            start == end -> 0
+            abs(start.column - end.column) == abs(start.row - end.row) -> 1
+            else -> 2
+        }
 
 /**
  * Сложная
