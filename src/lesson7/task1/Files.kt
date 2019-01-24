@@ -55,9 +55,10 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val mutMap = mutableMapOf<String, Int>()
-    for (i in 0 until substrings.size)
-        mutMap[substrings[i]] = Regex(substrings[i].toLowerCase())
-                .findAll(File(inputName).readLines().joinToString(separator = " ").toLowerCase()).count()
+    val words = File(inputName).readLines().joinToString(separator = " ").toLowerCase()
+    for (i in 0 until substrings.size) {
+        mutMap[substrings[i]] = Regex(substrings[i].toLowerCase()).findAll(words).count()
+    }
     return mutMap
 }
 
