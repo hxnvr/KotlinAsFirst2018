@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+
 import java.io.File
 
 /**
@@ -53,14 +54,7 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
-    val mutMap = mutableMapOf<String, Int>()
-    val words = File(inputName).readLines().joinToString(separator = " ").toLowerCase()
-    for (i in 0 until substrings.size) {
-        mutMap[substrings[i]] = Regex(substrings[i].toLowerCase()).findAll(words).count()
-    }
-    return mutMap
-}
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
 
 
 /**
@@ -216,7 +210,26 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    var maxLength = -1
+    val writer = File(outputName).bufferedWriter()
+    val res = mutableListOf<String>()
+    val text = File(inputName).readLines().filter {
+        it.toLowerCase().toCharArray().size == it.toLowerCase().toCharArray().toSet().size
+    }
+    for (it in text) {
+        if (it.length == maxLength) {
+            res.add(it)
+        }
+        if (it.length > maxLength) {
+            maxLength = it.length
+            res.clear()
+            res.add(it)
+        }
+
+
+    }
+    writer.write(res.joinToString(", "))
+    writer.close()
 }
 
 /**
