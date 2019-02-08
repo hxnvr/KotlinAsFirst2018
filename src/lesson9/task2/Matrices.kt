@@ -3,6 +3,7 @@ package lesson9.task2
 
 import lesson9.task1.Matrix
 import lesson9.task1.createMatrix
+import kotlin.math.min
 
 // Все задачи в этом файле требуют наличия реализации интерфейса "Матрица" в Matrix.kt
 
@@ -75,7 +76,15 @@ fun generateSpiral(height: Int, width: Int): Matrix<Int> = TODO()
  *  1  2  2  2  2  1
  *  1  1  1  1  1  1
  */
-fun generateRectangles(height: Int, width: Int): Matrix<Int> = TODO()
+fun generateRectangles(height: Int, width: Int): Matrix<Int> {
+    val result = createMatrix(height, width, 0)
+    for (i in 0 until height)
+        for (j in 0 until width) {
+            val value = min(min(i, j), min((height - i - 1), (width - j - 1))) + 1
+            result[i, j] = value
+        }
+    return result
+}
 
 /**
  * Сложная
@@ -103,7 +112,15 @@ fun generateSnake(height: Int, width: Int): Matrix<Int> = TODO()
  * 4 5 6      8 5 2
  * 7 8 9      9 6 3
  */
-fun <E> rotate(matrix: Matrix<E>): Matrix<E> = TODO()
+fun <E> rotate(matrix: Matrix<E>): Matrix<E> {
+    if (matrix.height != matrix.width) throw IllegalArgumentException()
+    val result = createMatrix(matrix.height, matrix.width, matrix[0, 0])
+    for (i in 0 until matrix.height)
+        for (j in 0 until matrix.width) {
+            result[i, j] = matrix[matrix.width - j - 1, i]
+        }
+    return result
+}
 
 /**
  * Сложная

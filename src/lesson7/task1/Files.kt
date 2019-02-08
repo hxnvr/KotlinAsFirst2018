@@ -3,6 +3,7 @@
 package lesson7.task1
 
 
+import lesson3.task1.digitCountInNumber
 import java.io.File
 
 /**
@@ -71,7 +72,25 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val text = File(inputName).readText()
+    val writer = File(outputName).bufferedWriter()
+    val firstLetters = "жЖчЧшШщЩ".toList()
+    var prev = false
+    val mapOfMistakes = mapOf("Ы" to "И", "ы" to "и", "Я" to "А", "я" to "а", "Ю" to "У", "ю" to "у")
+    for (char in text) {
+        val str = char.toString()
+        if (firstLetters.contains(char)) {
+            prev = true
+            writer.write(str)
+        } else {
+            if (prev) {
+                if (mapOfMistakes.containsKey(str)) writer.write(mapOfMistakes[str].toString()) else writer.write(str)
+                prev = false
+            } else writer.write(str)
+        }
+
+    }
+    writer.close()
 }
 
 /**
@@ -144,7 +163,21 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+    val text = File(inputName).readLines()
+    val mutMap = mutableMapOf<String, Int>()
+    for (line in text) {
+        val words = Regex("""[а-яА-ЯЁёa-zA-Z]+""")
+                .findAll(line.toLowerCase())
+                .map { it.value }
+                .toList()
+        for (word in words) {
+            mutMap[word] = mutMap.getOrDefault(word, 0) + 1
+        }
+
+    }
+    return mutMap.map { it.key to it.value }.sortedBy { it.second }.reversed().take(20).toMap()
+}
 
 /**
  * Средняя
