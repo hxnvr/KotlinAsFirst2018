@@ -188,7 +188,24 @@ fun kingMoveNumber(start: Square, end: Square): Int =
  *          kingTrajectory(Square(3, 5), Square(6, 2)) = listOf(Square(3, 5), Square(4, 4), Square(5, 3), Square(6, 2))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun kingTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun kingTrajectory(start: Square, end: Square): List<Square> {
+    val result = mutableListOf(start)
+    while (result.last() != end) {
+        val last = result.last()
+        val deltaX = end.column - last.column
+        val deltaY = end.row - last.row
+        if (start == end) return result
+        if (deltaX > 0 && deltaY > 0) result.add(Square(last.column + 1, last.row + 1))
+        if (deltaX > 0 && deltaY < 0) result.add(Square(last.column + 1, last.row - 1))
+        if (deltaX > 0 && deltaY == 0) result.add(Square(last.column + 1, last.row))
+        if (deltaX < 0 && deltaY > 0) result.add(Square(last.column - 1, last.row + 1))
+        if (deltaX < 0 && deltaY < 0) result.add(Square(last.column - 1, last.row - 1))
+        if (deltaX < 0 && deltaY == 0) result.add(Square(last.column - 1, last.row))
+        if (deltaX == 0 && deltaY > 0) result.add(Square(last.column, last.row + 1))
+        if (deltaX == 0 && deltaY < 0) result.add(Square(last.column, last.row - 1))
+    }
+    return result
+}
 
 /**
  * Сложная
