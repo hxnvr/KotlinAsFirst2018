@@ -207,6 +207,7 @@ fun kingTrajectory(start: Square, end: Square): List<Square> {
     return result
 }
 
+
 /**
  * Сложная
  *
