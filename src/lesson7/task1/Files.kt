@@ -176,7 +176,7 @@ fun top20Words(inputName: String): Map<String, Int> {
         }
 
     }
-    return mutMap.map { it.key to it.value }.sortedBy { it.second }.reversed().take(20).toMap()
+    return mutMap.toList().sortedByDescending { it.second }.take(20).toMap()
 }
 
 /**
