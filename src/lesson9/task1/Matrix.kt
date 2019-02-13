@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER", "unused")
+
 package lesson9.task1
 
 import java.lang.IllegalArgumentException
@@ -23,6 +24,7 @@ interface Matrix<E> {
      * Методы могут бросить исключение, если ячейка не существует или пуста
      */
     operator fun get(row: Int, column: Int): E
+
     operator fun get(cell: Cell): E
 
     /**
@@ -30,6 +32,7 @@ interface Matrix<E> {
      * Методы могут бросить исключение, если ячейка не существует
      */
     operator fun set(row: Int, column: Int, value: E)
+
     operator fun set(cell: Cell, value: E)
 }
 
@@ -44,17 +47,18 @@ fun <E> createMatrix(height: Int, width: Int, e: E): Matrix<E> {
     if ((height <= 0) || (width <= 0)) throw IllegalArgumentException()
     return MatrixImpl(height, width, e)
 }
+
 /**
  * Средняя сложность
  *
  * Реализация интерфейса "матрица"
  */
-class MatrixImpl<E> (override val height: Int, override val width: Int, e: E) : Matrix<E> {
+class MatrixImpl<E>(override val height: Int, override val width: Int, e: E) : Matrix<E> {
     val array = MutableList(height) { MutableList(width) { e } }
 
-    override fun get(row: Int, column: Int): E  = array[row][column]
+    override fun get(row: Int, column: Int): E = array[row][column]
 
-    override fun get(cell: Cell): E  = get(cell.row, cell.column)
+    override fun get(cell: Cell): E = get(cell.row, cell.column)
 
     override fun set(row: Int, column: Int, value: E) {
         array[row][column] = value
