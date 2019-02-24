@@ -3,6 +3,8 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import lesson9.task2.fifteenGameMoves
+import java.io.File
 import java.lang.IllegalArgumentException
 
 /**
@@ -232,7 +234,7 @@ fun mostExpensive(description: String): String {
                 .toMutableList()
                 .map { it.split(" ") }
                 .map { it -> Pair(it[0], it[1].toDouble()) }
-                .maxBy { (_, v) -> v }!!.first
+                .maxBy { it.second }!!.first
     } catch (e: Exception) {
         ""
     }

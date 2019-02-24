@@ -114,9 +114,10 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> =
-        grades.entries.map { it.key }.groupBy { grades[it] }.mapValues { (_, grade) ->
+        grades.map { it.key }.groupBy { grades[it] }.mapValues { (_, grade) ->
             grade.sortedDescending()
         }.toSortedMap(compareBy { -it })
+
 /**
  * Простая
  *
@@ -280,9 +281,9 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     val copy = list.toMutableList()
     for (element in copy) {
         val tempList = copy - element
-        if (number - element in tempList) return list.indexOf(element) to tempList.indexOf(number - element) + 1
+        if (number - element in tempList) return Pair(list.indexOf(element), tempList.indexOf(number - element) + 1)
     }
-    return -1 to -1
+    return Pair(-1, -1)
 }
 
 /**
